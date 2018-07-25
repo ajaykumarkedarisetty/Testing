@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="63652" started-at="2018-07-17T19:19:07Z" finished-at="2018-07-17T19:20:11Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="63652" started-at="2018-07-17T19:19:07Z" finished-at="2018-07-17T19:20:11Z">
+      <class name="usescripts.Dummyclass">
+        <test-method status="PASS" signature="job()[pri:0, instance:usescripts.Dummyclass@2833cc44]" name="job" duration-ms="63624" started-at="2018-07-17T19:19:07Z" finished-at="2018-07-17T19:20:11Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- job -->
+      </class> <!-- usescripts.Dummyclass -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
