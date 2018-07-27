@@ -13,6 +13,7 @@ import java.util.Random;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Reporter;
 
 public class CommonMethodsUsed extends BrowserMethods {
 
@@ -49,19 +50,26 @@ public class CommonMethodsUsed extends BrowserMethods {
 		r.keyRelease(KeyEvent.VK_ENTER);
 	}
 
-	public void CalendarDaymethod(int DaysToAdd) {
-		// Date picker- calendar
-		List<WebElement> displayeddates = driver.findElements(By.xpath("(//*[starts-with(@id,'datepicker')])"));
-		System.out.println(displayeddates.size());
-		for (WebElement ele : displayeddates) {
-			String date = ele.getText();
-			SimpleDateFormat sdf = new SimpleDateFormat("dd");
-			Calendar c = Calendar.getInstance();
-			c.setTime(new Date());
-			c.add(Calendar.DATE, DaysToAdd); // Adding days
-			String output = sdf.format(c.getTime());
-			if (date.equalsIgnoreCase(output)) {
-				ele.click();
+	public void CalendarDay(int DaystoAdd) {
+		List<WebElement> calendardates = driver.findElements(By.xpath("(//*[starts-with(@id,'datepicker')])"));
+		System.out.println(calendardates.size());
+
+		SimpleDateFormat simpledate = new SimpleDateFormat("dd");
+		Calendar c = Calendar.getInstance();
+		c.setTime(new Date());
+		String Todaydate = simpledate.format(c.getTime());
+		Reporter.log(Todaydate);
+		int Todaydate_int = Integer.parseInt(Todaydate);
+
+		int AddedDate = Todaydate_int + DaystoAdd;
+		datetoselect = "(//td[starts-with(@id,'datepicker')])[" + AddedDate + "]";
+
+		for (WebElement ele : calendardates) {
+			String dates = ele.getText();
+			Reporter.log(dates);
+
+			if (dates.equalsIgnoreCase(Todaydate)) {
+				driver.findElement(By.xpath(datetoselect)).click();
 				break;
 			}
 		}
@@ -71,4 +79,14 @@ public class CommonMethodsUsed extends BrowserMethods {
 		Select zone = new Select(driver.findElement(By.xpath("//select[@name='timezone']")));
 		zone.selectByValue("string:Asia/Calcutta");
 	}
+
+	public StringBuilder alphanumeric() {
+		Aplhanumeric = (letters + letters.toUpperCase() + numbers).toCharArray();
+		StringBuilder randnumber = new StringBuilder();
+		for (int z = 0; z < 5; z++) {
+			randnumber.append(Aplhanumeric[new Random().nextInt(Aplhanumeric.length)]);
+		}
+		return randnumber;
+	}
+
 }

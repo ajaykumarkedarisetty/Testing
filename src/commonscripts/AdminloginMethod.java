@@ -6,10 +6,10 @@ public class AdminloginMethod extends CommonMethodsUsed {
 	BrowserMethods launch = new BrowserMethods();
 
 	public void Adminlogin() throws InterruptedException {
-		launch.setup();
+		//launch.setup();
 		launch.url("https://qa.eteki.com/admin/login");
 		driver.findElement(By.xpath("//input[@id='user_email']")).sendKeys(AdminEmail);
-		driver.findElement(By.xpath("//input[@id='user_password']")).sendKeys(AdminPassword);
+		driver.findElement(By.xpath("//input[@id='user_password']")).sendKeys(Password);
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
 		// Pending Candidates
 		Thread.sleep(2000);
