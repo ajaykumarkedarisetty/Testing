@@ -6,50 +6,50 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Reporter;
 
-public class CreatejobMethod extends CommonMethodsUsed {
-	CommonMethodsUsed Commethods = new CommonMethodsUsed();
+public class RecCreateJob extends CommonMethodsUsed {
+	CommonMethodsUsed help = new CommonMethodsUsed();
 	
-	public void createjob(String JobTitle, String UploadResumePath) throws AWTException, InterruptedException {
-		// Create job form
+	public void createjobfromrec(String JobTitle, String JdFilepath) throws AWTException, InterruptedException {
+		driver.findElement(By.xpath("//input[@name='companyname']")).sendKeys(HiringCompanyname);
+		Reporter.log(HiringCompanyname);
 
-		driver.findElement(By.xpath("//input[@placeholder='Company Name']")).sendKeys(HiringCompanyname);
 		RequisitionNumber = alphanumeric();
 		driver.findElement(By.xpath("//input[@name='job_code']")).sendKeys(RequisitionNumber);
-		driver.findElement(By.xpath("//input[@ng-model='jobDetailsData.title']")).sendKeys(JobTitle);
+		driver.findElement(By.xpath("//input[@ng-model='jobData.title']")).sendKeys(JobTitle);
 		Reporter.log(JobTitle);
+		driver.findElement(By.xpath("//textarea[@placeholder='Job Description']")).sendKeys(JobdescriptionContent);
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("//a[@filetype='jd_file']")).click();
-		driver.findElement(By.xpath("//textarea[@name='description']")).sendKeys(JobdescriptionContent);
-		Commethods.uploadfile(UploadResumePath);
+		help.uploadfile(JdFilepath);
 		Thread.sleep(2000);
 
 		for (int i = 0; i < 5; i++) {
 			driver.findElement(
 					By.xpath("//input[contains(@placeholder,'Select Required Skills (example: java, c, etc)')]"))
 					.sendKeys(RequiredSkills[i]);
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 			driver.findElement(By.xpath("//span[@ng-bind-html='$highlight($getDisplayText())']")).click();
 		}
 
 		for (int j = 0; j < OptionalSkill.length; j++) {
 			driver.findElement(By.xpath("//input[@placeholder='Select Optional Skills (example: java, c, etc)']"))
 					.sendKeys(OptionalSkill[j]);
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 			driver.findElement(By.xpath("//span[@ng-bind-html='$highlight($getDisplayText())']")).click();
 		}
 
-		driver.findElement(By.xpath("//input[@placeholder='Relevant Experience']")).sendKeys(YearsofExperience);
+		driver.findElement(By.xpath("//input[@ng-model='jobData.experience_required']")).sendKeys(YearsofExperience);
 		Reporter.log(YearsofExperience);
 
 		driver.findElement(By.xpath("//input[@placeholder='Job Closing Date']")).click();
-		Thread.sleep(2000);
-		Commethods.CalendarDay(10);
+		help.CalendarDay(10);
 
-		Codingsamples = driver.findElement(By.xpath("(//input[@ng-model='jobDetailsData.coding_required'])[2]"))
+		Codingsamples = driver.findElement(By.xpath("(//input[@ng-model='jobData.coding_required'])[2]"))
 				.isSelected();
 		if (Codingsamples == true) {
 			System.out.println("Coding not required option is selected");
 		} else {
-			driver.findElement(By.xpath("(//input[@ng-model='jobDetailsData.coding_required'])[2]")).click();
+			driver.findElement(By.xpath("(//input[@ng-model='jobData.coding_required'])[2]")).click();
 		}
 
 		Whiteboardsamples = driver.findElement(By.xpath("(//input[@name='whiteboard_required'])[2]")).isSelected();
@@ -67,16 +67,11 @@ public class CreatejobMethod extends CommonMethodsUsed {
 
 		driver.findElement(By.id("number_of_prospects")).sendKeys(NumberofCandidates);
 		Reporter.log(NumberofCandidates);
-
-		SelectedInterviewer = driver.findElement(By.xpath("(//input[@name='selected_interviewers'])[2]")).isSelected();
-		if (Whiteboardsamples == true) {
-			System.out.println("Selected Interviewer not required option is selected");
-		} else {
-			driver.findElement(By.xpath("(//input[@name='selected_interviewers'])[2]")).click();
-		}
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//button[@ng-click='jobCreate()']")).click();
-		Thread.sleep(13000);
+		driver.findElement(By.xpath("//button[@id='save_and_exit']")).click();
+		Thread.sleep(10000);
 		driver.findElement(By.xpath("//button[@class='confirm']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//a[@ng-if='skipBtnShow']")).click();
 	}
 }

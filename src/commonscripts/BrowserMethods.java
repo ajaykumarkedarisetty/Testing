@@ -10,7 +10,6 @@ public class BrowserMethods extends Config {
 		System.setProperty("webdriver.chrome.driver", ChromeBrowser_exePath);
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		// driver.get("https://qa.eteki.com/admin/login");
 	}
 
 	public void url(String URL_to_Navigate) {
